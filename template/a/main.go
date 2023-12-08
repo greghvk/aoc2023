@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-  f := "./1/input"
+  f := "./x/a/input"
   file, err := os.Open(f)
   if err != nil {
       fmt.Println(err)

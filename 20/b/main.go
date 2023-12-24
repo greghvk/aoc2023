@@ -13,7 +13,7 @@ import (
 // It turns out that the listed gates (nf, pm, jd, qm) are periodically sending a low signal (run and see logs).
 // The requency of each of these gates is a prime. The moment where all of the signals are low
 // is the LCM of these primes (which is just multiply):
-// Result: 3917 * 4057 * 3943 * 3931 =
+// Result: 3917 * 4057 * 3943 * 3931 = 246313604784977
 var toLog = map[string]bool {
   "nf": true,
   "pm": true,
@@ -51,7 +51,7 @@ func main() {
   fmt.Println(m)
   cnt := 0
   
-  for true {
+  for {
     cnt++
     if process(cnt) {
       break

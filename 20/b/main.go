@@ -7,6 +7,20 @@ import (
 	"strings"
 )
 
+// We need to have low signal coming from gates listed below at once.
+// Why? rx (our target) only receives signals from 1 AND gate, which in turn receives from 4 AND gates.
+// Befre that, these 4 AND only receive signals from other 4 AND gates listed below (see gates.drawio for visualisation).
+// It turns out that the listed gates (nf, pm, jd, qm) are periodically sending a low signal (run and see logs).
+// The requency of each of these gates is a prime. The moment where all of the signals are low
+// is the LCM of these primes (which is just multiply):
+// Result: 3917 * 4057 * 3943 * 3931 =
+var toLog = map[string]bool {
+  "nf": true,
+  "pm": true,
+  "jd": true,
+  "qm": true,
+}
+
 type element struct {
   statePerInput map[string]bool
   t int
@@ -39,7 +53,10 @@ func main() {
   
   for true {
     cnt++
-    if process() {
+    if process(cnt) {
+      break
+    }
+    if cnt == 10000 {
       break
     }
   }
@@ -79,7 +96,7 @@ type signal struct {
   target, source string
 }
 
-func process() bool {
+func process(press int) bool {
 
   q := []signal{}
   for _, tgt := range(m["broadcaster"].outs) {
@@ -93,6 +110,13 @@ func process() bool {
   for len(q) > 0 {
     sign := q[0]
     q = q[1:]
+    if toLog[sign.source] && !sign.high {
+      fmt.Println("sending high from", sign.source, "at", press)
+    }
+    // pm: 3917
+    // jd: 4057
+    // nf: 3943
+    // qm: 3931
     if sign.target == "rx" && !sign.high {
       return true
     }

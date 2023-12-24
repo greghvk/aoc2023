@@ -9,7 +9,7 @@ import (
 
 // We need to have low signal coming from gates listed below at once.
 // Why? rx (our target) only receives signals from 1 AND gate, which in turn receives from 4 AND gates.
-// Befre that, these 4 AND only receive signals from other 4 AND gates listed below (see gates.drawio for visualisation).
+// Befre that, these 4 AND only receive signals from other 4 AND gates listed below (see gates.png for visualisation).
 // It turns out that the listed gates (nf, pm, jd, qm) are periodically sending a low signal (run and see logs).
 // The requency of each of these gates is a prime. The moment where all of the signals are low
 // is the LCM of these primes (which is just multiply):

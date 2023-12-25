@@ -47,20 +47,13 @@ func main() {
         if newi<0 || newi==len(g) || newj<0 || newj==len(g[0]) || g[newi][newj] != '.' {
           continue
         }
-        // fmt.Println("can travel to ", newi, newj, "with n steps", steps)
         g[newi][newj] = 'O'
         q = append(q, []int{newi, newj})
       }
     }
     steps++
-    // fmt.Println("AFTER STEPS", steps)
-    // for i := range(g) {
-    //   fmt.Println(string(g[i]))
-    // }
   }
-  fmt.Println(len(g), len(g[0]))
   fmt.Println(res)
-
 }
 
 func getSt(g [][]rune) []int {
